@@ -1,0 +1,4 @@
+PyQt5>=5.3,<5.5
+PyQtWebEngine
+pymongo>=3.0,<4.0
+cython
