@@ -16,7 +16,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
 
-from PyQt5.Qt import QWebPage, QWebSettings
+# from PyQt5.Qt import QWebPage, QWebSettings
+from PyQt5.QtWebEngineWidgets import QWebEnginePage, QWebEngineSettings
 from PyQt5.QtNetwork import QNetworkProxy, QNetworkRequest
 from PyQt5.QtCore import QSize, QUrl, QByteArray
 
@@ -26,12 +27,12 @@ from models.clickable import Clickable
 from models.utils import CrawlSpeed
 import logging
 
-class InteractionCore(QWebPage):
+class InteractionCore(QWebEnginePage):
     '''
     This is the main class for interacting with a webpage, here are all necessary js-files loaded, and signal connections build
     '''    
     def __init__(self, parent, proxy = "", port = 0, crawl_speed = CrawlSpeed.Medium, network_access_manager = None):
-        QWebPage.__init__(self, parent)
+        QWebEnginePage.__init__(self, parent)
         self.app = parent.app
         self._js_bridge = JsBridge(self)
         self.loadFinished.connect(self.loadFinishedHandler)
@@ -83,12 +84,12 @@ class InteractionCore(QWebPage):
 
         enablePlugins = True
         loadImages = False
-        self.settings().setAttribute(QWebSettings.PluginsEnabled, enablePlugins)
-        self.settings().setAttribute(QWebSettings.JavaEnabled, enablePlugins)
-        #self.settings().setAttribute(QWebSettings.AutoLoadImages, loadImages)
-        self.settings().setAttribute(QWebSettings.DeveloperExtrasEnabled, True)
-        self.settings().setAttribute(QWebSettings.JavascriptEnabled, True)
-        self.settings().setAttribute(QWebSettings.JavascriptCanOpenWindows, True)
+        self.settings().setAttribute(QWebEngineSettings.PluginsEnabled, enablePlugins)
+        self.settings().setAttribute(QWebEngineSettings.JavaEnabled, enablePlugins)
+        #self.settings().setAttribute(QWebEngineSettings.AutoLoadImages, loadImages)
+        self.settings().setAttribute(QWebEngineSettings.DeveloperExtrasEnabled, True)
+        self.settings().setAttribute(QWebEngineSettings.JavascriptEnabled, True)
+        self.settings().setAttribute(QWebEngineSettings.JavascriptCanOpenWindows, True)
         
         if network_access_manager:
             self.setNetworkAccessManager(network_access_manager)

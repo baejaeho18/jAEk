@@ -21,7 +21,8 @@ import string
 from enum import Enum
 
 from PyQt5.Qt import QUrl
-from PyQt5.QtWebKitWidgets import QWebPage
+# from PyQt5.QtWebKitWidgets import QWebPage
+from PyQt5.QtWebEngineWidgets import QWebEnginePage
 from analyzer.helper.formhelper import extract_forms
 from analyzer.helper.linkhelper import extract_links
 
@@ -242,7 +243,7 @@ class EventExecutor(InteractionCore):
         self._new_url = url
 
     def createWindow(self, webWindowType):
-        self.popup = QWebPage()
+        self.popup = QWebEnginePage()
         return self.popup
 
 
